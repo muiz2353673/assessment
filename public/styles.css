@@ -1,0 +1,143 @@
+/* Reset all default browser styles for consistent appearance */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Main body styling */
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; /* Modern, readable font stack */
+  background: linear-gradient(
+    135deg,
+    #667eea 0%,
+    #764ba2 100%
+  ); /* Beautiful gradient background */
+  min-height: 100vh; /* Full viewport height */
+  display: flex; /* Flexbox for centering */
+  align-items: center; /* Vertical centering */
+  justify-content: center; /* Horizontal centering */
+  padding: 20px; /* Add some space around the edges */
+}
+
+/* Main container for the application */
+.container {
+  background: white; /* White background for contrast */
+  border-radius: 15px; /* Rounded corners for modern look */
+  padding: 40px; /* Internal spacing */
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  max-width: 600px; /* Maximum width for readability */
+  width: 100%; /* Full width up to max-width */
+  text-align: center; /* Center all text content */
+}
+
+/* Main heading styling */
+h1 {
+  color: #333; /* Dark gray for good contrast */
+  margin-bottom: 30px; /* Space below the title */
+  font-size: 2.5rem; /* Large, prominent font size */
+  font-weight: 700; /* Bold weight for emphasis */
+}
+
+/* Joke card container */
+.joke-card {
+  background: #f8f9fa; /* Light gray background */
+  border-radius: 10px; /* Rounded corners */
+  padding: 30px; /* Internal spacing */
+  margin: 20px 0; /* Vertical spacing */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  cursor: pointer; /* Pointer cursor to indicate clickability */
+  transition: all 0.3s ease; /* Smooth transition for hover effects */
+  min-height: 150px; /* Minimum height to prevent layout shifts */
+  display: flex; /* Flexbox for centering content */
+  align-items: center; /* Vertical centering */
+  justify-content: center; /* Horizontal centering */
+}
+
+/* Hover effect for joke card */
+.joke-card:hover {
+  transform: translateY(-2px); /* Slight upward movement */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15); /* Enhanced shadow on hover */
+}
+
+/* Joke setup text styling */
+.setup {
+  font-size: 1.2rem; /* Readable font size */
+  color: #333; /* Dark text for readability */
+  line-height: 1.6; /* Good line spacing */
+  font-weight: 500; /* Medium weight */
+}
+
+/* Joke punchline styling */
+.punchline {
+  font-size: 1.1rem; /* Slightly smaller than setup */
+  color: #667eea; /* Blue color to distinguish from setup */
+  font-weight: 600; /* Bold weight for emphasis */
+  opacity: 0; /* Initially invisible */
+  transform: translateY(20px); /* Start position for animation */
+  transition: all 0.5s ease; /* Smooth animation */
+  font-style: italic; /* Italic style for punchline */
+}
+
+/* Animation class for showing punchline */
+.punchline.show {
+  opacity: 1; /* Fully visible */
+  transform: translateY(0); /* Final position */
+}
+
+/* Loading state container */
+.loading {
+  display: flex; /* Flexbox for alignment */
+  align-items: center; /* Vertical centering */
+  justify-content: center; /* Horizontal centering */
+  gap: 10px; /* Space between spinner and text */
+  color: #666; /* Gray color for secondary text */
+  font-size: 1.1rem; /* Readable font size */
+}
+
+/* Loading spinner animation */
+.spinner {
+  width: 20px; /* Spinner size */
+  height: 20px; /* Spinner size */
+  border: 2px solid #f3f3f3; /* Light border */
+  border-top: 2px solid #667eea; /* Blue top border for spinning effect */
+  border-radius: 50%; /* Circular shape */
+  animation: spin 1s linear infinite; /* Continuous spinning animation */
+}
+
+/* Keyframes for spinner rotation */
+@keyframes spin {
+  0% {
+    transform: rotate(0deg); /* Start position */
+  }
+  100% {
+    transform: rotate(360deg); /* Full rotation */
+  }
+}
+
+/* User instruction text */
+.instruction {
+  margin-top: 20px; /* Space above instructions */
+  color: #666; /* Gray color for secondary text */
+  font-size: 0.9rem; /* Smaller font size */
+  font-style: italic; /* Italic style */
+}
+
+/* Responsive design for mobile devices */
+@media (max-width: 768px) {
+  .container {
+    padding: 30px 20px; /* Reduced padding on smaller screens */
+  }
+
+  h1 {
+    font-size: 2rem; /* Smaller title on mobile */
+  }
+
+  .joke-card {
+    padding: 20px; /* Reduced padding on mobile */
+  }
+
+  .setup {
+    font-size: 1.1rem; /* Slightly smaller text on mobile */
+  }
+}

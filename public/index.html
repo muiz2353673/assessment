@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Joke App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Link to external CSS file for styling -->
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- Main container for the entire application -->
+    <div class="container">
+      <!-- Application title -->
+      <h1>🎭 Random Jokes</h1>
+
+      <!-- Joke card - the main interactive element -->
+      <div class="joke-card" id="jokeCard">
+        <!-- Loading spinner and message -->
+        <div class="loading" id="loading">
+          <div class="spinner"></div>
+          Loading a joke...
+        </div>
+
+        <!-- Joke setup text (initially hidden) -->
+        <div class="setup" id="setup" style="display: none"></div>
+        <!-- Joke punchline text (initially hidden) -->
+        <div class="punchline" id="punchline"></div>
+      </div>
+
+      <!-- User instruction text (initially hidden) -->
+      <div class="instruction" id="instruction" style="display: none">
+        Click to reveal the punchline, then click again for the next joke!
+      </div>
+    </div>
+
+    <script>
+      // Global variables to track application state
+      let currentJoke = null; // Stores the current joke object
+      let punchlineRevealed = false; // Tracks whether punchline is shown
+
+      // Get references to DOM elements for easy access
+      const jokeCard = document.getElementById("jokeCard"); // Main joke container
+      const loading = document.getElementById("loading"); // Loading spinner
+      const setup = document.getElementById("setup"); // Joke setup text
+      const punchline = document.getElementById("punchline"); // Joke punchline text
+      const instruction = document.getElementById("instruction"); // User instructions
+
+      // Function to load a random joke from the server
+      async function loadRandomJoke() {
+        try {
+          // Show loading state
+          loading.style.display = "flex";
+          setup.style.display = "none";
+          punchline.style.display = "none";
+          instruction.style.display = "none";
+
+          // Fetch random joke from the API
+          const response = await fetch("/api/joke/random");
+          if (!response.ok) {
+            throw new Error("Failed to fetch joke");
+          }
+
+          // Parse the JSON response and store the joke
+          currentJoke = await response.json();
+
+          // Hide loading and show the joke setup
+          loading.style.display = "none";
+          setup.style.display = "block";
+          setup.textContent = currentJoke.setup;
+          instruction.style.display = "block";
+
+          // Reset punchline state for the new joke
+          punchlineRevealed = false;
+          punchline.classList.remove("show");
+          punchline.style.display = "none";
+        } catch (error) {
+          // Handle errors gracefully
+          console.error("Error loading joke:", error);
+          loading.style.display = "none";
+          setup.style.display = "block";
+          setup.textContent = "Failed to load a joke. Please try again.";
+        }
+      }
+
+      // Function to reveal the punchline with animation
+      function showPunchline() {
+        if (!currentJoke) return; // Safety check
+
+        // Show the punchline element
+        punchline.style.display = "block";
+        punchline.textContent = currentJoke.punchline;
+
+        // Add animation class after a small delay for smooth transition
+        setTimeout(() => {
+          punchline.classList.add("show");
+        }, 100);
+
+        // Update state and instruction text
+        punchlineRevealed = true;
+        instruction.textContent = "Click again for the next joke!";
+      }
+
+      // Event listener for clicking on the joke card
+      jokeCard.addEventListener("click", async () => {
+        if (!punchlineRevealed) {
+          // If punchline is not revealed, show it
+          showPunchline();
+        } else {
+          // If punchline is already shown, load the next joke
+          await loadRandomJoke();
+        }
+      });
+
+      // Event listener for keyboard navigation
+      document.addEventListener("keydown", async (event) => {
+        // Allow Space or Enter keys to trigger the same action as clicking
+        if (event.code === "Space" || event.code === "Enter") {
+          event.preventDefault(); // Prevent default browser behavior
+          if (!punchlineRevealed) {
+            showPunchline();
+          } else {
+            await loadRandomJoke();
+          }
+        }
+      });
+
+      // Initialize the app by loading the first joke when the page loads
+      document.addEventListener("DOMContentLoaded", loadRandomJoke);
+    </script>
+  </body>
+</html>
