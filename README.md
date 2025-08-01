@@ -192,26 +192,6 @@ This application can be deployed to various platforms:
 - **Railway**: Direct deployment from GitHub
 - **DigitalOcean**: Deploy to App Platform
 
-### Production Considerations
-
-- Set up HTTPS
-- Add rate limiting
-- Implement proper logging
-- Consider using a production database (PostgreSQL, MySQL)
-- Add monitoring and error tracking
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test thoroughly
-5. Submit a pull request
-
-## 📄 License
-
-This project is part of a full-stack developer assignment.
-
 ---
 
 **Built with ❤️ using Node.js, Express, and SQLite**
