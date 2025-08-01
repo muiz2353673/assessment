@@ -23,7 +23,7 @@ A modern, interactive web application that displays random jokes from a database
 1. **Clone the repository**
 
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/muiz2353673/assessment.git
    cd assessment
    ```
 
